@@ -31,14 +31,28 @@ def authorize(f):
             return f(user, *args, **kws)            
     return decorated_function
 
-
 @app.route('/')
 def index():
     return "Hello, World!"
 
-@app.route('/item', methods=['POST'])
-def register_item():
-	item = request.values.get('email') 
+@app.route('/list', methods=['GET'])
+def list():
+    # Get list of items from database for any given user.
+    user_obj = User.objects(mail=session['user']).first()
+
+    # Get list of items from database.
+    items = Item.objects(user=user_obj.id).to_json()
+
+    # Remove this when you have included items
+    items = [{'name': i.mail} for i in User.objects()] 
+
+    context = {
+        'items': items,
+        'user': user_obj.mail.split('@')[0]
+
+    }
+
+    return render_template('list.html', **context)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -52,12 +66,16 @@ def login():
         pw = request.values.get('password')
 
         # Get user from database.
-        user = User.objects(mail=email)
-        if len(user) != 1:
-        	abort(401)
-        if user[0].password == pw:
-        	# Work only with user id from email.
-        	session['user'] = email.split('@')[0]
+        users = User.objects(mail=email)
+        if len(users) != 1:
+            abort(401)
+
+        user = users[0]
+        if user.password == pw:
+            session['user'] = user.mail
+            return 'Success!'
+
+        return 'error'
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -77,10 +95,6 @@ def register_user():
 
         return 'Success!'
 
-# @app.route('/get')
-# def get():
-
 if __name__ == '__main__':
-	# Create database
     connect('todo')
     app.run()

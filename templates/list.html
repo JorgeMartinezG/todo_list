@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Showing items for user {{ user }}</h2>
+
+<table border = 1>
+	{% for item in items %}
+	<tr>
+	   <td> {{ item.name }} </td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}
