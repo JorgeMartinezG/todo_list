@@ -1,7 +1,7 @@
 import mongoengine as me
 
 class User(me.Document):
-	mail = me.StringField(required=True)
+	mail = me.EmailField(required=True)
 	password = me.StringField(required=True)
 
 class Item(me.Document):
