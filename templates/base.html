@@ -22,10 +22,27 @@
         	url: '/register',
         	data: {email: email, password: password},
             success: function (response) {
-            	$('#response').text('Success!')
+                $('#response').html('User registered succesfully, redirecting to login page. If not, click <a id="login_url" href="/login">Here</a>');
+                setTimeout(function(){
+                    $('#login_url').get(0).click();
+                }, 2000);
             }
         })
 	});
+
+    $('#login_button').click(function() {
+        let email = $('#login_form input[type=text]')[0].value
+        let password = $('#login_form input[type=password]')[0].value
+
+        $.post({
+            url: '/login',
+            data: {email: email, password: password},
+            success: function (response) {
+                
+            }
+        })
+    });
+
 </script>
 
 </html>
