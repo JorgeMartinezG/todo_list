@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8">
+	<title>Todo List</title>
+</head>
+
+<body>
+	{% block content %}{% endblock %}
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$('#submit_button').click(function() {
+		let email = $('#user_form input[type=text]')[0].value
+		let password = $('#user_form input[type=password]')[0].value
+
+        $.post({
+        	url: '/register',
+        	data: {email: email, password: password},
+            success: function (response) {
+            	$('#response').text('Success!')
+            }
+        })
+	});
+</script>
+
+</html>

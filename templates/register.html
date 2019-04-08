@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form id="user_form">
+	<p>Email:</p>
+    <input type="text" name="email">
+	
+	<p>Password:</p>
+    <input type="password" name="password">
+	<br>
+    <input id="submit_button" type="button" value="Click me">
+</form>
+
+<p id="response"></p>
+
+{% endblock %}
