@@ -1,4 +1,7 @@
 from flask import Flask
+from models import User
+
+from mongoengine import connect
 
 app = Flask(__name__)
 
@@ -6,6 +9,14 @@ app = Flask(__name__)
 def index():
     return "Hello, World!"
 
+@app.route('/register')
+def register():
+    user = User('jorge', 'martinez')
+    user.save()
+
+# @app.route('/get')
+# def get():
 
 if __name__ == '__main__':
-   app.run()
+    connect('testdb')
+    app.run()
