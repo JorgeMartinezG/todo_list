@@ -38,7 +38,10 @@
             url: '/login',
             data: {email: email, password: password},
             success: function (response) {
-                
+                $('#response').html('User logged in succesfully, redirecting to list page. If not, click <a id="list_url" href="/list">Here</a>');
+                setTimeout(function(){
+                    $('#list_url').get(0).click();
+                }, 2000);
             }
         })
     });
