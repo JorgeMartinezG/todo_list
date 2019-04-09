@@ -95,7 +95,7 @@ def add():
         item = Item(user=user_obj.id, text=text)
         item.save()
 
-        return 'Success!'
+        return str(item.id)
 
 
 @app.route('/register', methods=['GET', 'POST'])

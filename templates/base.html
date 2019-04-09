@@ -52,14 +52,14 @@
         $.post({
             url: '/add',
             data: {text: text},
-            success: function (response) {
-                // Refresh page.
-                location.reload(true);
+            success: function (id) {
+                let markup = '<tr id="' + id +'"><td><input type="checkbox"></td><td>'+ text + '</td><td></td>';
+                $('table tbody').append(markup);
             }
         })
     });
 
-    $('input[type=checkbox]').change(function(element) {
+    $('table').on('click', 'tr td input[type=checkbox]', function() {
         let tr_element = this.parentElement.parentElement;
 
         let data = {
