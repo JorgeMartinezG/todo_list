@@ -41,10 +41,7 @@ def list():
     user_obj = User.objects(mail=session['user']).first()
 
     # Get list of items from database.
-    items = Item.objects(user=user_obj.id).to_json()
-
-    # Remove this when you have included items
-    items = [{'name': i.mail} for i in User.objects()] 
+    items = [{'name': i.text} for i in Item.objects(user=user_obj.id)] 
 
     context = {
         'items': items,
@@ -76,6 +73,21 @@ def login():
             return 'Success!'
 
         return 'error'
+
+@app.route('/add', methods=['GET', 'POST'])
+def add():
+    # Render register template.
+    if request.method == 'GET':
+        return render_template('add.html')
+
+    if request.method == 'POST':
+        text = request.values.get('text')
+        user_obj = User.objects(mail=session['user']).first()
+
+        item = Item(user=user_obj.id, text=text)
+        item.save()
+
+        return 'Success!'
 
 
 @app.route('/register', methods=['GET', 'POST'])

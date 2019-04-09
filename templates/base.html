@@ -43,6 +43,17 @@
         })
     });
 
+    $('#add_button').click(function() {
+        let text = $('#add_form input[type=text]')[0].value
+
+        $.post({
+            url: '/add',
+            data: {text: text},
+            success: function (response) {
+            }
+        })
+    });
+
 </script>
 
 </html>
