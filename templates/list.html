@@ -13,9 +13,20 @@
 
 <table border = 1>
 	{% for item in items %}
-	<tr>
-		
-	   <td> {{ item.name }} </td>
+	<tr id="{{ item.id }}">
+		<td>
+			{% if item.completed %}
+		   		<input type="checkbox" checked>
+			{% else %}
+		   		<input type="checkbox">
+			{% endif %}
+		</td>
+
+		<td> {{ item.name }} </td>
+
+		{% if item.completed %}
+	   		<td>completed</td>
+		{% endif %}
 	</tr>
 	{% endfor %}
 </table>

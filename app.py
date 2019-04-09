@@ -24,7 +24,8 @@ def list():
     user_obj = User.objects(mail=session['user']).first()
 
     # Get list of items from database.
-    items = [{'name': i.text} for i in Item.objects(user=user_obj.id)] 
+    items = [{'id': str(i.id), 'name': i.text, 'completed': i.completed} \
+        for i in Item.objects(user=user_obj.id)]
 
     context = {
         'items': items,
@@ -33,6 +34,7 @@ def list():
     }
 
     return render_template('list.html', **context)
+
 
 @app.route('/logout', methods=['GET'])
 def logout():
@@ -63,6 +65,23 @@ def login():
             return 'Success!'
 
         return 'error'
+
+@app.route('/update', methods=['POST'])
+def update():
+    obj_id = request.values.get('id')
+    status = request.values.get('status')
+
+    completed = False
+    if status == 'true':
+        completed = True
+
+    # Updating element.
+    item = Item.objects(id=obj_id).first()
+    item.completed = completed
+
+    item.save()
+
+    return 'Success'
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():

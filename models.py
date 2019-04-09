@@ -7,3 +7,4 @@ class User(me.Document):
 class Item(me.Document):
 	user = me.ReferenceField(User, required=True)
 	text = me.StringField(required=True)
+	completed = me.BooleanField(default=False)

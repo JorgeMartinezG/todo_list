@@ -59,6 +59,22 @@
         })
     });
 
+    $('input[type=checkbox]').change(function() {
+        let data = {
+            id: this.parentElement.parentElement.id,
+            status: this.checked
+        }
+
+        $.post({
+            url: '/update',
+            data: data,
+            success: function (response) {
+                // Refresh page.
+                location.reload(true);
+            }
+        });
+    });
+
 </script>
 
 </html>
