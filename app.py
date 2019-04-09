@@ -17,23 +17,6 @@ from mongoengine import connect
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'someRandomStringPleaseChange'
 
-def authorize(f):
-    @wraps(f)
-    def decorated_function(*args, **kws):
-            if not 'Authorization' in request.headers:
-               abort(401)
-
-            user = 'jorge'
-            password = 'martinez'
-
-            # Check database connection
-            test = User.objects(mail='jorge@gmail.com')
-            return f(user, *args, **kws)            
-    return decorated_function
-
-@app.route('/')
-def index():
-    return "Hello, World!"
 
 @app.route('/list', methods=['GET'])
 def list():
@@ -51,7 +34,7 @@ def list():
 
     return render_template('list.html', **context)
 
-
+@app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # Render register template.
