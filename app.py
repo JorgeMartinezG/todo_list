@@ -34,6 +34,13 @@ def list():
 
     return render_template('list.html', **context)
 
+@app.route('/logout', methods=['GET'])
+def logout():
+	session.pop('user', None)
+
+	return redirect(url_for('login'))
+
+
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():

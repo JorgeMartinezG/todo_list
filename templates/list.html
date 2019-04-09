@@ -2,14 +2,23 @@
 
 {% block content %}
 
-<h2>Showing items for user {{ user }}</h2>
+<h2>Showing items for user {{ user }}</h2> <a href="/logout">logout</a>
+
+<form id="add_form">
+	<p>Item:</p>
+    <input type="text" name="item">
+	<br>
+    <input id="add_button" type="button" value="Add">
+</form>
 
 <table border = 1>
 	{% for item in items %}
 	<tr>
+		
 	   <td> {{ item.name }} </td>
 	</tr>
 	{% endfor %}
 </table>
+
 
 {% endblock %}

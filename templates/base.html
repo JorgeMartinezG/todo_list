@@ -53,6 +53,8 @@
             url: '/add',
             data: {text: text},
             success: function (response) {
+                // Refresh page.
+                location.reload(true);
             }
         })
     });
