@@ -59,18 +59,24 @@
         })
     });
 
-    $('input[type=checkbox]').change(function() {
+    $('input[type=checkbox]').change(function(element) {
+        let tr_element = this.parentElement.parentElement;
+
         let data = {
-            id: this.parentElement.parentElement.id,
+            id: tr_element.id,
             status: this.checked
+        }
+
+        let status_new = ""
+        if (this.checked) {
+            status_new = "completed"
         }
 
         $.post({
             url: '/update',
             data: data,
             success: function (response) {
-                // Refresh page.
-                location.reload(true);
+                tr_element.children[2].innerText = status_new
             }
         });
     });

@@ -35,7 +35,6 @@ def list():
 
     return render_template('list.html', **context)
 
-
 @app.route('/logout', methods=['GET'])
 def logout():
 	session.pop('user', None)
