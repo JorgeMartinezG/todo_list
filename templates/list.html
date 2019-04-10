@@ -2,19 +2,31 @@
 
 {% block content %}
 
-<h2>Showing items for user {{ user }}</h2> <a href="/logout">logout</a>
+<div class="account-wall">
 
-<form id="add_form">
-	<p>Item:</p>
-    <input type="text" name="item">
-	<br>
-    <input id="add_button" type="button" value="Add">
-</form>
+	<div class="row alert alert-info">
+		<h4 class="col-sm-8">Showing items for user {{ user }}</h4>	
+		<div class="pull-right">
+			<div class="col-sm-4"><a class="btn btn-primary" href="/logout">logout</a></div>
+		</div>
+	</div>
 
-<table id="list-items" border = 1>
+
+<div class="row" id="add_form">
+	<div class="col-sm-5">
+	    <input type="text" name="item">
+	</div>
+	<div class="col-sm-3">
+    	<input type="button" id="add_button" classtype="button" value="Add">
+	</div>	
+</div>
+
+<h3>&nbsp&nbspList of tasks</h3>
+
+<table id="list-items" class="table">
 	{% for item in items %}
 	<tr id="{{ item.id }}">
-		<td>
+		<td class="checkbox-small">
 			{% if item.completed %}
 		   		<input type="checkbox" checked>
 			{% else %}
@@ -32,6 +44,10 @@
 	</tr>
 	{% endfor %}
 </table>
+	
+
+</div>
+
 
 
 {% endblock %}
