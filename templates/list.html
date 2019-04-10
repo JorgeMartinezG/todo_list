@@ -24,25 +24,27 @@
 <h3>&nbsp&nbspList of tasks</h3>
 
 <table id="list-items" class="table">
-	{% for item in items %}
-	<tr id="{{ item.id }}">
-		<td class="checkbox-small">
+	<tbody>
+		{% for item in items %}
+		<tr id="{{ item.id }}">
+			<td class="checkbox-small">
+				{% if item.completed %}
+			   		<input type="checkbox" checked>
+				{% else %}
+			   		<input type="checkbox">
+				{% endif %}
+			</td>
+
+			<td> {{ item.name }} </td>
+
 			{% if item.completed %}
-		   		<input type="checkbox" checked>
+		   		<td>completed</td>
 			{% else %}
-		   		<input type="checkbox">
+				<td></td>
 			{% endif %}
-		</td>
-
-		<td> {{ item.name }} </td>
-
-		{% if item.completed %}
-	   		<td>completed</td>
-		{% else %}
-			<td></td>
-		{% endif %}
-	</tr>
-	{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 	
 
