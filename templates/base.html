@@ -86,7 +86,13 @@
 </style>
 
 <body>
-	{% block content %}{% endblock %}
+<div class="container">
+    <div class="row">
+        {% block content %}{% endblock %}
+        <p id="response"></p>
+    </div>
+</div>
+
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
