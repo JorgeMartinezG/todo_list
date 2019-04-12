@@ -8,14 +8,24 @@ from flask import (
     session
 )
 
+import mongoengine as me
+
 from models import User, Item
 
 from functools import wraps
 
-from mongoengine import connect
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'someRandomStringPleaseChange'
+
+
+class User(me.Document):
+    mail = me.EmailField(required=True)
+    password = me.StringField(required=True)
+
+class Item(me.Document):
+    user = me.ReferenceField(User, required=True)
+    text = me.StringField(required=True)
+    completed = me.BooleanField(default=False)
 
 
 @app.route('/list', methods=['GET'])
@@ -116,5 +126,5 @@ def register_user():
         return 'Success!'
 
 if __name__ == '__main__':
-    connect('todo')
+    me.connect('todo')
     app.run()
