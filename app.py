@@ -65,15 +65,15 @@ def login():
         # Get user from database.
         users = User.objects(mail=email)
         if len(users) != 1:
-            abort(401)
+            return json.dumps({'status': 'error'})
 
         user = users[0]
         if user.password == pw:
             session['user'] = user.mail 
-            import ipdb; ipdb.set_trace()
-            return 'Success!'
+            return json.dumps({'status': 'success'})
 
-        return 'error'
+        return json.dumps({'status': 'error'})
+
 
 @app.route('/update', methods=['POST'])
 def update():

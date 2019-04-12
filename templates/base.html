@@ -137,11 +137,16 @@
         $.post({
             url: '/login',
             data: {email: email, password: password},
+            dataType: 'json',
             success: function (response) {
-                $('#response').html('User logged in succesfully, redirecting to list page. If not, click <a id="list_url" href="/list">Here</a>');
-                setTimeout(function(){
-                    $('#list_url').get(0).click();
-                }, 2000);
+                if (response.status === 'success') {
+                    $('#response').html('User logged in succesfully, redirecting to list page. If not, click <a id="list_url" href="/list">Here</a>');
+                    setTimeout(function(){
+                        $('#list_url').get(0).click();
+                    }, 2000);
+                } else {
+                    $('#response').html('Login error!!');
+                }
             }
         })
     });
