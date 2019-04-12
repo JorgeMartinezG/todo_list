@@ -8,6 +8,7 @@ from flask import (
     session
 )
 
+import json
 import mongoengine as me
 
 from functools import wraps
@@ -68,7 +69,8 @@ def login():
 
         user = users[0]
         if user.password == pw:
-            session['user'] = user.mail
+            session['user'] = user.mail 
+            import ipdb; ipdb.set_trace()
             return 'Success!'
 
         return 'error'
@@ -118,10 +120,22 @@ def register_user():
         email = request.values.get('email')
         pw = request.values.get('password')
 
+        # Check tha user has been created before
+        if len(User.objects(mail=email)) > 1:
+            return json.dumps({
+            'status': 'error',
+            'message': 'user already exists!!'
+            })
+
         user = User(email, pw)
         user.save()
-
-        return 'Success!'
+        data = {
+            'status': 'success',
+            'id': str(user.id),
+            'name': user.mail
+        }
+        print(data)
+        return json.dumps(data)
 
 if __name__ == '__main__':
     me.connect('todo')
