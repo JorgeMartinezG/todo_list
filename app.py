@@ -115,7 +115,6 @@ def register_user():
         return render_template('register.html')
 
     # Insert user into database.
-    # TODO: Check for previous email created.
     if request.method == 'POST':
         email = request.values.get('email')
         pw = request.values.get('password')
@@ -134,7 +133,6 @@ def register_user():
             'id': str(user.id),
             'name': user.mail
         }
-        print(data)
         return json.dumps(data)
 
 if __name__ == '__main__':
