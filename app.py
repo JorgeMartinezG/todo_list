@@ -10,8 +10,6 @@ from flask import (
 
 import mongoengine as me
 
-from models import User, Item
-
 from functools import wraps
 
 app = Flask(__name__)
