@@ -29,6 +29,10 @@ class Item(me.Document):
 
 @app.route('/list', methods=['GET'])
 def list():
+    # Check if there is a session cookie.
+    if not 'user' in session.keys():
+        return redirect(url_for('login'))
+
     # Get list of items from database for any given user.
     user_obj = User.objects(mail=session['user']).first()
 
